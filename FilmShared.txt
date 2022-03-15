@@ -1,0 +1,36 @@
+Create database if not exists filmShared;
+
+use filmShared;
+
+CREATE TABLE IF NOT EXISTS UsersFilmShared(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    Pass_Word varchar(10) not null,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS UsersLists(
+    ListId int(11) NOT NULL AUTO_INCREMENT,
+    ListName varchar(30) not null,
+    UserOwnerId int(11) not null,
+    PRIMARY KEY (ListId),
+    CONSTRAINT FK_UserList FOREIGN KEY (UserOwnerId)
+    REFERENCES UsersFilmShared(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS UsersFilms(
+    FilmId int(11) NOT NULL AUTO_INCREMENT,
+    ListOwnerId int(11) NOT NULL,
+    filmAuxUrl varchar(500),
+    PRIMARY KEY (FilmId),
+    CONSTRAINT FK_ListFilms FOREIGN KEY (FilmId)
+    REFERENCES UsersLists(ListId)
+);
+
+SELECT usersfilmshared.id, usersfilmshared.Pass_Word, UsersLists.ListId,UsersLists.ListName,UsersFilms.FilmId ,UsersFilms.filmAuxUrl 
+FROM usersfilmshared
+INNER JOIN userslists
+ON usersfilmshared.id=userslists.ListId 
+INNER JOIN usersfilms 
+on userslists.ListId = usersfilms.FilmId
