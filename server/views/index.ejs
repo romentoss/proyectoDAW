@@ -1,1 +1,46 @@
-<h1>hola Mundo</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+    <title>lista users</title>
+</head>
+<body>
+    <div class="table-responsive table-striped w-100 ">
+        <table class="table table-borderd table-hover">
+            <thead>
+                <tr>
+                     <th>FilmId</th>
+                     <th>ListOwnerId</th>
+                     <th>filmAuxUrl</th>
+                     <th>Id</th>
+                     <th>Password</th>
+                     <th>ListId</th>
+                     <th>ListName</th>
+                     <th>UserOwnerId</th>
+                </tr>
+            </thead>
+            <tbody>
+             <% if (data) { %>
+                 <% for (var i=0; i<data.length; i++){ %>
+                     <tr>
+                         
+                         <td><%= data[i].FilmId%></td>
+                         <td><%= data[i].ListOwnerId%></td>
+                         <td><%= data[i].filmAuxUrl %></td>
+                         <td><%= data[i].id %></td>
+                         <td><%= data[i].Pass_Word %></td>
+                         <td><%= data[i].ListId %></td>
+                         <td><%= data[i].ListName %></td>
+                         <td><%= data[i].UserOwnerId %></td>
+                         
+                     </tr>
+                 <% } %>
+             <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
