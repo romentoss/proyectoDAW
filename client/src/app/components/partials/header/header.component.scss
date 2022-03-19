@@ -1,0 +1,29 @@
+
+li{
+    display: flex;
+    flex-direction: row;
+    
+} 
+.navbar-brand{
+    margin-left: 5%;
+  
+}
+.navbar-toggler{
+    margin-right: 5%;
+}
+
+.navbar-brand{
+    margin-right: 70%;
+}
+@media only screen and (max-width:462px){
+
+}
+@media only screen and (max-width:962px) {
+    li{
+        display: flex;
+        flex-direction: column;
+    } 
+    .navbar-brand{
+        margin-right: 0%;
+    }
+  }
