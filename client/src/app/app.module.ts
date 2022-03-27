@@ -5,12 +5,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PeliculaService } from './services/pelicula.service';
-import { HeaderComponent } from './components/partials/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
+import { BaseLayoutComponent } from './layout/base-layout/base-layout/base-layout.component';
+import { ViewBaseComponent } from './views/viewBase/view-base/view-base.component';
+
+import { ViewLoginComponent } from './views/viewLogin/view-login/view-login.component';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout/login-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    BaseLayoutComponent,
+    ViewBaseComponent,
+    ViewLoginComponent,
+    LoginLayoutComponent,
+    
   ],
   imports: [
     BrowserModule,
