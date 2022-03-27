@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'])
   }
   public goToHome() {
-    this.router.navigate(['/'])
+    this.router.navigate(['/home'])
   }
  
 }

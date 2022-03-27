@@ -6,7 +6,7 @@ import { ViewBaseComponent } from './views/viewBase/view-base/view-base.componen
 import { ViewLoginComponent } from './views/viewLogin/view-login/view-login.component';
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: BaseLayoutComponent,
     children: [
       {
