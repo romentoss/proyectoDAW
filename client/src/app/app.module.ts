@@ -11,6 +11,7 @@ import { ViewBaseComponent } from './views/viewBase/view-base/view-base.componen
 
 import { ViewLoginComponent } from './views/viewLogin/view-login/view-login.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout/login-layout.component';
+import { FilmComponent } from './components/film/film.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginLayoutComponent } from './layout/login-layout/login-layout/login-l
     ViewBaseComponent,
     ViewLoginComponent,
     LoginLayoutComponent,
+    FilmComponent,
     
   ],
   imports: [

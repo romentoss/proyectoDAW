@@ -6,26 +6,27 @@
     <!--Traer los datos de las peliculas solo imagen y titulo
     crear estructura para pintar las peliculas-->
     <br>
-    <div class="films">
-        <div class="table-responsive table-striped w-100 ">
-            <table class="table table-borderd ">
-                <tr>
-                    <td *ngFor="let pelicula of resultadoPeliculas">
-                        <div class="divTarget">
-                            <img *ngIf=" pelicula && pelicula.backdrop_path" [src]="getFullImgPath(pelicula?.backdrop_path)"/>
-                        <p *ngIf="pelicula && pelicula.original_title" >{{pelicula.original_title}}</p>
-                        </div>
-                    </td>
-                </tr>
-                <!-- <div *ngFor="let pelicula of resultadoPeliculas">
-                   
-                    
-                </div> -->
-            </table>
-            
+    <div class="Carrousel_MainContainer">
+        <div class="Carrousel_ButtonsContainer">
+            <div class="Carrousel_ButtonContainer">
+                <button type="button">
+                    a
+                </button>
+            </div>
+            <div class="Carrousel_ButtonContainer">
+                <button type="button">
+                    b
+                </button>
+            </div>
         </div>
-       
+        <div class="ViewBaseFilm" *ngFor="let pelicula of resultadoPeliculas">
+            <app-film
+                [film]="pelicula" 
+            ></app-film>
+        </div>
     </div>
+
+
     <h1>Listas de Usuario</h1>
     <div class="lists">
         

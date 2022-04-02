@@ -11,7 +11,6 @@ export class ViewBaseComponent implements OnInit {
   title = 'API peliculas';
   page:number=0; 
  
-  foto="https://image.tmdb.org/t/p/w500";
   resultadoPeliculas:Result[]=[]; 
   
   // API_URL=`http://api.themoviedb.org/3/movie/popular?api_key=1503085c4d4109b42067460d59344777&page=`+this.page;
@@ -56,14 +55,7 @@ export class ViewBaseComponent implements OnInit {
      
       };
 
-  getFullImgPath(id:string|undefined){
-    if(id){ 
-      return this.foto + id;
-    }
-    return 'no foto';
-    
-  }
-  
+
 
   ngOnInit(): void {
     this.initPage(1);
