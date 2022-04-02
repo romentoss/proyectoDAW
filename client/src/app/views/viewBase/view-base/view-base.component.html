@@ -7,14 +7,28 @@
     crear estructura para pintar las peliculas-->
     <br>
     <div class="films">
-        <div *ngFor="let pelicula of resultadoPeliculas">
-            <div class="divTarget">
-                <img *ngIf=" pelicula && pelicula.backdrop_path" [src]="getFullImgPath(pelicula?.backdrop_path)"/>
-            <p *ngIf="pelicula && pelicula.original_title" >{{pelicula.original_title}}</p>
-            </div>
+        <div class="table-responsive table-striped w-100 ">
+            <table class="table table-borderd ">
+                <tr>
+                    <td *ngFor="let pelicula of resultadoPeliculas">
+                        <div class="divTarget">
+                            <img *ngIf=" pelicula && pelicula.backdrop_path" [src]="getFullImgPath(pelicula?.backdrop_path)"/>
+                        <p *ngIf="pelicula && pelicula.original_title" >{{pelicula.original_title}}</p>
+                        </div>
+                    </td>
+                </tr>
+                <!-- <div *ngFor="let pelicula of resultadoPeliculas">
+                   
+                    
+                </div> -->
+            </table>
             
         </div>
+       
     </div>
-   
+    <h1>Listas de Usuario</h1>
+    <div class="lists">
+        
+    </div>
 </div>
 

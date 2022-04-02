@@ -1,5 +1,6 @@
 img{
-    width: 100%;
+    margin-top: 5%;
+    
 }
 .films{
    display: flex;
@@ -9,9 +10,21 @@ img{
     
 }
 .divTarget{
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     
     p{
-        color: white;
+        color: rgb(255, 255, 255);
     }
 }
+
+
+
+@media screen and (max-width: 480px){
+    .divTarget{
+        background-color: rgb(0, 0, 0);
+    }
+    img{
+        width: 200px;
+    }
+}
+
