@@ -1,0 +1,6 @@
+<div class="Film_MainContainer">
+    <div class="divTarget">
+        <img *ngIf="film.backdrop_path" [src]="getFullImgPath(film?.backdrop_path)"/>
+    <p *ngIf="film.original_title" >{{film.original_title}}</p>
+    </div>
+</div>

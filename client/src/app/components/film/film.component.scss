@@ -1,0 +1,25 @@
+.Film_MainContainer {
+
+}
+
+.divTarget{
+    background-color: rgb(0, 0, 0);
+    
+    p{
+        color: rgb(255, 255, 255);
+    }
+}
+
+@media screen and (max-width: 480px){
+    .divTarget{
+        background-color: rgb(0, 0, 0);
+    }
+    img{
+        width: 200px;
+    }
+}
+
+img{
+    margin-top: 5%;
+    
+}
