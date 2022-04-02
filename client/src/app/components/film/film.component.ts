@@ -8,11 +8,10 @@ import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 })
 export class FilmComponent implements OnInit {
   @Input() film!: Result;
-  
+
   foto="https://image.tmdb.org/t/p/w500";
 
   ngOnInit(): void {
-    console.log("film", this.film)
   }
 
   getFullImgPath(id:string|undefined){

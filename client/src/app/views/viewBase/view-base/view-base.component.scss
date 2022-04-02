@@ -10,6 +10,8 @@
     flex-direction: column;
     place-content: center;
     align-items: center;
+
+    width: 20%;
 }
 
 .Carrousel_ButtonsContainer {
@@ -20,6 +22,7 @@
     flex-direction: row;
     place-content: space-between;
     align-items: center;
+    z-index: 999;
 }
 
 .Carrousel_ButtonContainer {
@@ -29,4 +32,9 @@
     button {
 
     }
+}
+
+.mierda {
+    
+    display: flex;
 }

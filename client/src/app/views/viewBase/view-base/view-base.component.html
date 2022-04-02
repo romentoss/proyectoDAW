@@ -9,20 +9,24 @@
     <div class="Carrousel_MainContainer">
         <div class="Carrousel_ButtonsContainer">
             <div class="Carrousel_ButtonContainer">
-                <button type="button">
+                <button type="button"
+                (click)="goPrev()">
                     a
                 </button>
             </div>
             <div class="Carrousel_ButtonContainer">
-                <button type="button">
+                <button type="button"
+                (click)="goNext()">
                     b
                 </button>
             </div>
         </div>
-        <div class="ViewBaseFilm" *ngFor="let pelicula of resultadoPeliculas">
-            <app-film
-                [film]="pelicula" 
-            ></app-film>
+        <div class="mierda" #carrousel>
+            <div class="ViewBaseFilm" *ngFor="let pelicula of resultadoPeliculas">
+                <app-film
+                    [film]="pelicula" 
+                ></app-film>
+            </div>
         </div>
     </div>
 
