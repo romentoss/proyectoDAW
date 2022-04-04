@@ -1,3 +1,4 @@
+import { NullTemplateVisitor } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { PeliculaService } from '../../../services/pelicula.service';
@@ -8,9 +9,16 @@ import { PeliculaService } from '../../../services/pelicula.service';
   styleUrls: ['./view-base.component.scss']
 })
 export class ViewBaseComponent implements OnInit {
+  
   title = 'API peliculas';
   page:number=0; 
  
+  peliculas=document.querySelectorAll('.pelicula');
+  flechaIzquierda:HTMLElement|null=document.getElementById('flecha-izquierda');
+  flechaDerecha:HTMLElement|null=document.getElementById('flecha-derecha');
+  fila!:HTMLElement;
+
+
   foto="https://image.tmdb.org/t/p/w500";
   resultadoPeliculas:Result[]=[]; 
   
@@ -19,14 +27,13 @@ export class ViewBaseComponent implements OnInit {
   
   xhr = new XMLHttpRequest();
    
+  
   constructor(
     private dataSvc:PeliculaService
   ){
-    
-    // this.PeliculaService.getPeliculas().subscribe(resp=>{
-    //   console.log(resp);
-    // })
+
   }
+ 
   async initPage(page:number){
     this.page = 1;
      console.log(page)
@@ -43,14 +50,13 @@ export class ViewBaseComponent implements OnInit {
     };
   async oldPage(page:number){
       if(this.page > 1){
-        // (document.getElementById('btnBack') as HTMLButtonElement).disabled = false;
         this.page = page-1;
         console.log(page)
         var result =await this.dataSvc.getAll(this.page)
          console.log('Result ',result.results[0]); 
          this.resultadoPeliculas = result.results;
       }
-        // (document.getElementById('btnBack') as HTMLButtonElement).disabled = true;
+      
 
       
      
@@ -63,10 +69,53 @@ export class ViewBaseComponent implements OnInit {
     return 'no foto';
     
   }
-  
 
+  
+  
   ngOnInit(): void {
     this.initPage(1);
+    this.fila = document.querySelector('.contenedor-carousel') as HTMLElement;
+    const peliculas = document.querySelectorAll('.pelicula');
+    
+    
+    let botonderecho = document.getElementById('flecha-derecha');
+    let botonizquierdo = document.getElementById('flecha-izquierda');
+
+    botonderecho!.addEventListener('click',()=>{
+        this.fila.scrollLeft += this.fila.offsetWidth;
+        const indicadorActivo = document.querySelector('.indicadores .activo')! as HTMLElement;
+        if(!indicadorActivo){
+          return;
+        }else{
+          if(indicadorActivo.nextElementSibling){
+          	indicadorActivo.nextElementSibling.classList.add('activo');
+          	indicadorActivo.classList.remove('activo');
+          }
+        }
+       
+    })
+    botonizquierdo!.addEventListener('click',()=>{
+      this.fila.scrollLeft -= this.fila.offsetWidth;
+      const indicadorActivo = document.querySelector('.indicadores .activo')! as HTMLElement;
+      if(!indicadorActivo){ 
+          return;
+      }else{
+        if(indicadorActivo!.nextElementSibling){
+          indicadorActivo.nextElementSibling.classList.add('activo');
+          indicadorActivo.classList.remove('activo');
+        }
+      }
+     
+  })
+    addEventListener('click',(e)=>{
+      
+      console.log(e.target);
+    })
   }
+ 
+  
+
+// ? ----- ----- Event Listener para la flecha derecha. ----- -----
+
 
 }
