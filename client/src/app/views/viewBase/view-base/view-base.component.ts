@@ -1,5 +1,5 @@
 import { NullTemplateVisitor } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { PeliculaService } from '../../../services/pelicula.service';
 
@@ -13,10 +13,12 @@ export class ViewBaseComponent implements OnInit {
   title = 'API peliculas';
   page:number=0; 
  
-  peliculas=document.querySelectorAll('.pelicula');
-  flechaIzquierda:HTMLElement|null=document.getElementById('flecha-izquierda');
-  flechaDerecha:HTMLElement|null=document.getElementById('flecha-derecha');
-  fila!:HTMLElement;
+  // peliculas=document.querySelectorAll('.pelicula');
+  
+  @ViewChild('carrousel') carrousel!:ElementRef;
+  @ViewChildren('peliculas') peliculas!:QueryList<ElementRef>;
+  carrouselStep:number = 0;
+  maxCarrouselStep!:number;
 
 
   foto="https://image.tmdb.org/t/p/w500";
@@ -69,46 +71,46 @@ export class ViewBaseComponent implements OnInit {
     return 'no foto';
     
   }
+  goNext(){
+    this.calculateMaxStep();
+    if(this.carrouselStep<this.maxCarrouselStep-1){
+      this.carrouselStep += 1;  
+      this.moveCarrousel();
+    }
+    
+    
+    // this.carrousel.nativeElement.scrollLeft += this.carrousel.nativeElement.offsetWidth;
+    
 
+    
+  }
+  goPre(){
+    this.calculateMaxStep();
+    if(this.carrouselStep>0){
+      this.carrouselStep -=1;
+      this.moveCarrousel();
+    }
+   
+    
   
+    
+  }
+  calculateMaxStep(){
+    const carrouselWidth = this.carrousel.nativeElement.offsetWidth;
+    const filmWidth = this.peliculas.first.nativeElement.offsetWidth;
+    this.maxCarrouselStep = Math.floor(this.resultadoPeliculas.length/(carrouselWidth/filmWidth));
+    console.log(this.maxCarrouselStep);
+  }
+  moveCarrousel(){
+    
+    this.carrousel.nativeElement.style.transform=`translate(-${this.carrouselStep*100}vw)`
+  }
+
+ 
   
   ngOnInit(): void {
     this.initPage(1);
-    this.fila = document.querySelector('.contenedor-carousel') as HTMLElement;
-    const peliculas = document.querySelectorAll('.pelicula');
-    
-    
-    let botonderecho = document.getElementById('flecha-derecha');
-    let botonizquierdo = document.getElementById('flecha-izquierda');
-
-    botonderecho!.addEventListener('click',()=>{
-        this.fila.scrollLeft += this.fila.offsetWidth;
-        const indicadorActivo = document.querySelector('.indicadores .activo')! as HTMLElement;
-        if(!indicadorActivo){
-          return;
-        }else{
-          if(indicadorActivo.nextElementSibling){
-          	indicadorActivo.nextElementSibling.classList.add('activo');
-          	indicadorActivo.classList.remove('activo');
-          }
-        }
-       
-    })
-    botonizquierdo!.addEventListener('click',()=>{
-      this.fila.scrollLeft -= this.fila.offsetWidth;
-      const indicadorActivo = document.querySelector('.indicadores .activo')! as HTMLElement;
-      if(!indicadorActivo){ 
-          return;
-      }else{
-        if(indicadorActivo!.nextElementSibling){
-          indicadorActivo.nextElementSibling.classList.add('activo');
-          indicadorActivo.classList.remove('activo');
-        }
-      }
-     
-  })
     addEventListener('click',(e)=>{
-      
       console.log(e.target);
     })
   }

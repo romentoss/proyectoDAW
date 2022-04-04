@@ -24,7 +24,17 @@ const routes: Routes = [
         component: ViewLoginComponent
       }
     ]
-  }
+  },
+  {
+    path: '**',
+    component: BaseLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ViewBaseComponent
+      }
+    ]
+  },
 ];
 
 @NgModule({

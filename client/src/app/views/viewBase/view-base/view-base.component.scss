@@ -30,10 +30,11 @@ h1{
     border: 5px solid black;
     border-radius: 5%;
     background-color: black;
+    min-width: 20vw;
   
 }
 .tituloPelicula{
-    width: 99.9%;
+    width: 100%;
     position: absolute;
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -54,7 +55,7 @@ h1{
     }
 }
 
-.contenedor-titulo-controles .indicadores button {
+.indicadores button {
 	background: #fff;
 	height: 3px;
 	width: 10px;
@@ -63,8 +64,8 @@ h1{
 	margin-right: 2px;
 }
 
-.contenedor-titulo-controles .indicadores button:hover,
-.contenedor-titulo-controles .indicadores button.activo {
+ button:hover,
+ button.activo {
 	background: red;
 }
 
@@ -72,16 +73,21 @@ h1{
 /* ---- ----- ----- Contenedor Principal y Flechas ----- ----- ----- */
 .peliculas-recomendadas {
 	margin-bottom: 70px;
+  
 }
 
-.peliculas-recomendadas .contenedor-principal {
+.contenedor-principal {
 	display: flex;
 	align-items: center;
 	position: relative;
+
+    button:disabled{
+        display: none;
+    }
 }
 
-.peliculas-recomendadas .contenedor-principal .flecha-izquierda,
-.peliculas-recomendadas .contenedor-principal .flecha-derecha {
+.flecha-izquierda,
+.flecha-derecha {
 	position: absolute;
 	border: none;
 	background: rgba(0,0,0,0.3);
@@ -92,102 +98,95 @@ h1{
 	width: 50px;
 	color: #fff;
 	cursor: pointer;
-	z-index: 500;
+	z-index: 3;
 	transition: .2s ease all;
+
 }
 
-.peliculas-recomendadas .contenedor-principal .flecha-izquierda:hover,
-.peliculas-recomendadas .contenedor-principal .flecha-derecha:hover {
+.flecha-izquierda:hover,
+.flecha-derecha:hover {
 	background: rgba(0,0,0, .9);
 }
 
-.peliculas-recomendadas .contenedor-principal .flecha-izquierda {
+ .flecha-izquierda {
 	left: 0;
 }
 
-.peliculas-recomendadas .contenedor-principal .flecha-derecha {
+ .flecha-derecha {
 	right: 0;
 }
 
 /* ---- ----- ----- Carousel ----- ----- ----- */
-.peliculas-recomendadas .contenedor-carousel {
+ .contenedor-carousel {
 	width: 100%;
 	padding: 20px 0;
-	overflow: hidden;
 	scroll-behavior: smooth;
+
+    
 }
 
-.peliculas-recomendadas .contenedor-carousel .carousel {
+ .carousel {
 	display: flex;
 	flex-wrap: nowrap;
-    gap:10px;
+    transition: .3s ease all;
+   
+   
+ 
 }
 
-.peliculas-recomendadas .contenedor-carousel .carousel .pelicula {
-	min-width: 20%;
-	transition: .3s ease all;
+ .pelicula {
+	
+	
 	box-shadow: 5px 5px 10px rgba(0,0,0, .3);
 }
 
-.peliculas-recomendadas .contenedor-carousel .carousel .pelicula.hover {
+ .pelicula:hover {
 	transform: scale(1.2);
 	transform-origin: center;
+    z-index: 2;
 }
 
-.peliculas-recomendadas .contenedor-carousel .carousel .pelicula img {
+ .pelicula img {
 	width: 100%;
 	vertical-align: top;
 }
 
 /* ---- ----- ----- Media Queries ----- ----- ----- */
-@media screen and (max-width: 800px) {
-	header .logotipo {
-		
-	}
-	.contenedor-principal{
-        width: 100%;
-        display: flex;
-	align-items: center;
-	position: relative;
-    }
-	.pelicula-principal .descripcion {
-		max-width: 100%;
-	}
 
-		.peliculas-recomendadas .contenedor-carousel {
-			overflow: visible;
-		}
-	
-		.peliculas-recomendadas .contenedor-carousel .carousel {
-			display: flex;
-			// grid-template-columns: repeat(3, 1fr);
-			gap: 20px;
-		}
-        .peliculas-recomendadas .contenedor-carousel {
-            width: 100%;
-            padding: 20px 0;
-            overflow: hidden;
-            scroll-behavior: smooth;
-        }
-        .carousel{
-            width: 200%;
-        }
-        .pelicula{
-            height: 20%;
-            position: relative;
-            border: 5px solid black;
-            
-          
-        }
+@media (max-width: 600px) {
+    .contenedor-carousel{
+        // overflow: hidden;
+   }
+    .pelicula{
+     
+        min-width: 33vw;
+      
+    }
+    .contenedor-principal{
        
-       
-	
-	// 	.peliculas-recomendadas .indicadores,
-	// 	.peliculas-recomendadas .flecha-izquierda,
-	// 	.peliculas-recomendadas .flecha-derecha {
-	// 		display: none;
-	// 	}
-}
+    }
+    /* acá van las reglas CSS que aplican para este media query */
+  }
+
+
+  @media (max-width: 450px) {
+      .contenedor-carousel{
+        //    overflow: hidden;
+      }
+    .pelicula{
+     
+        min-width: 50vw;
+      
+    }
+
+  }
+
+
+
+
+
+
+
 
 
 //Fin carrousel
