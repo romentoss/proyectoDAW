@@ -10,8 +10,8 @@
         <div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <button [hidden]="hideLoginButton || isLogged" (click)="goToLogin()">Login</button>
-                    <button>Register</button>
+                    <button [hidden]="hideLoginButton || isLogged" (click)="goToLogin()" class="logout">Logout</button>
+                    
                 </li>
                 </ul>
         </div>

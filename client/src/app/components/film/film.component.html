@@ -1,6 +1,18 @@
-<div class="Film_MainContainer">
+<!-- <div class="Film_MainContainer">
     <div class="divTarget">
         <img *ngIf="film.backdrop_path" [src]="getFullImgPath(film?.backdrop_path)"/>
     <p *ngIf="film.original_title" >{{film.original_title}}</p>
     </div>
+</div> -->
+<div id="pelicula">
+    <div class="botones_pelicula">
+        <button mat-button style="background-color: red;">+</button>
+        <select >
+            <option *ngFor="let lista of resultadoListas">{{lista.listName}}</option>
+        </select>
+    </div>
+   
+    <img *ngIf=" pelicula" [src]="getFullImgPath(pelicula?.backdrop_path)" alt="{{pelicula.id}}">
+    <p *ngIf="pelicula && pelicula.original_title" class="tituloPelicula">{{pelicula.original_title | slice:0:20}}</p> 
 </div>
+

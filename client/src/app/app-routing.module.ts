@@ -1,3 +1,6 @@
+import { ViewRegisterComponent } from './views/view-register/view-register.component';
+
+import { registerLocaleData } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseLayoutComponent } from './layout/base-layout/base-layout/base-layout.component';
@@ -16,22 +19,32 @@ const routes: Routes = [
     ]
   },
   {
-    path: '',
+    path: 'login',
     component: LoginLayoutComponent,
     children: [
       {
-        path: 'login',
+        path: '',
         component: ViewLoginComponent
       }
     ]
   },
   {
-    path: '**',
-    component: BaseLayoutComponent,
+    path: 'registro',
+    component: LoginLayoutComponent,
     children: [
       {
         path: '',
-        component: ViewBaseComponent
+        component: ViewRegisterComponent
+      }
+    ]
+  },
+  {
+    path: '**',
+    component: LoginLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ViewLoginComponent
       }
     ]
   },

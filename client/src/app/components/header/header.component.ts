@@ -19,11 +19,15 @@ export class HeaderComponent implements OnInit {
     
   }
   public goToLogin() {
+    localStorage.clear();
     this.router.navigate(['/login'])
   }
   public goToHome() {
-    this.router.navigate(['/home'])
+    // this.router.navigate(['/home'])
+  }
+  
+    
   }
  
-}
+
 

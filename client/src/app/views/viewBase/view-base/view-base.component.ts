@@ -1,7 +1,9 @@
+import { ListasService } from './../../../services/listas.service';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { PeliculaService } from '../../../services/pelicula.service';
+import { Datum,Film } from 'src/app/models/popularMoviesResponseDTO.model';
 
 @Component({
   selector: 'app-view-base',
@@ -13,16 +15,21 @@ export class ViewBaseComponent implements OnInit {
   title = 'API peliculas';
   page:number=0; 
  
+ 
   // peliculas=document.querySelectorAll('.pelicula');
   
   @ViewChild('carrousel') carrousel!:ElementRef;
   @ViewChildren('peliculas') peliculas!:QueryList<ElementRef>;
+  pelicula = this.peliculas;
+
   carrouselStep:number = 0;
   maxCarrouselStep!:number;
 
 
   foto="https://image.tmdb.org/t/p/w500";
   resultadoPeliculas:Result[]=[]; 
+  resultadoListas:Datum[]=[];
+  resultadoListasPeliculas:Film[]=[];
   
   // API_URL=`http://api.themoviedb.org/3/movie/popular?api_key=1503085c4d4109b42067460d59344777&page=`+this.page;
   
@@ -31,11 +38,40 @@ export class ViewBaseComponent implements OnInit {
    
   
   constructor(
-    private dataSvc:PeliculaService
+    private dataSvc:PeliculaService,
+    private dataLists:ListasService
   ){
 
   }
- 
+  async initLists(){
+    
+    
+     var result =await this.dataLists.getAllList()
+      console.log('Result ',result);
+      if(result.data[0].films != undefined){
+        console.log("Listas",result.data[0]);
+        this.resultadoListas = result.data;
+      }
+      
+      
+      
+    };
+
+    async initFilms(){
+    
+    
+      var result =await this.dataLists.getAllList()
+       console.log('Result ',result);
+       if(result.data[0].films != undefined){
+         console.log("peliculas de lista 1",result.data[0].films);
+         this.resultadoListasPeliculas = result.data[0].films;
+       }
+       
+       
+       
+     };
+  
+
   async initPage(page:number){
     this.page = 1;
      console.log(page)
@@ -110,11 +146,15 @@ export class ViewBaseComponent implements OnInit {
   
   ngOnInit(): void {
     this.initPage(1);
+    this.initLists();
+    this.initFilms();
     addEventListener('click',(e)=>{
       console.log(e.target);
     })
   }
- 
+  redirectTo(){
+    location.href = 'www.netflix.com/watch/81193599?trackId=253863245';
+  }
   
 
 // ? ----- ----- Event Listener para la flecha derecha. ----- -----

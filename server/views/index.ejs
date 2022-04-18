@@ -12,14 +12,15 @@
         <table class="table table-borderd table-striped table-hover">
             <thead>
                 <tr>
-                     <th>FilmId</th>
-                     <th>ListOwnerId</th>
-                     <th>filmAuxUrl</th>
-                     <th>Id</th>
+                     <th>Name</th>
+                     <th>Email</th>
                      <th>Password</th>
-                     <th>ListId</th>
-                     <th>ListName</th>
-                     <th>UserOwnerId</th>
+                     <th>listId</th>
+                     <th>listName</th>
+                     <th>emailUser</th>
+                     <th>filmId</th>
+                     <th>filmUrl</th>
+                     <th>listOwner</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,14 +28,15 @@
                  <% for (var i=0; i<data.length; i++){ %>
                      <tr>
                          
-                         <td><%= data[i].FilmId%></td>
-                         <td><%= data[i].ListOwnerId%></td>
-                         <td><%= data[i].filmAuxUrl %></td>
-                         <td><%= data[i].id %></td>
-                         <td><%= data[i].Pass_Word %></td>
-                         <td><%= data[i].ListId %></td>
-                         <td><%= data[i].ListName %></td>
-                         <td><%= data[i].UserOwnerId %></td>
+                         <td><%= data[i].name%></td>
+                         <td><%= data[i].email%></td>
+                         <td><%= data[i].password %></td>
+                         <td><%= data[i].listId %></td>
+                         <td><%= data[i].listName %></td>
+                         <td><%= data[i].emailUser %></td>
+                         <td><%= data[i].filmId %></td>
+                         <td><%= data[i].filmUrl %></td>
+                         <td><%= data[i].listOwner %></td>
                          
                      </tr>
                  <% } %>

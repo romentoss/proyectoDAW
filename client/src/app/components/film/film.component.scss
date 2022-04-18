@@ -1,6 +1,28 @@
 .Film_MainContainer {
 
 }
+.tituloPelicula{
+    width: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-align: center;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius:50% ;
+    
+    
+
+}
+img{
+    width: 100%;
+}
+
+.pelicula img {
+	width: 100%;
+	vertical-align: top;
+}
+
 
 .divTarget{
     background-color: rgb(0, 0, 0);
@@ -9,13 +31,25 @@
         color: rgb(255, 255, 255);
     }
 }
+.botones_pelicula{
+   display: flex;
+   justify-content: space-between;
+   margin: 10px 10px 10px 10px;
+   flex-direction: row;
+}
 
 @media screen and (max-width: 480px){
     .divTarget{
         background-color: rgb(0, 0, 0);
     }
     img{
-        width: 200px;
+        width: 100%;
+    }
+    .botones_pelicula{
+        flex-direction: column;
+    }
+    .mat-button{
+        height: 5vh;
     }
 }
 
