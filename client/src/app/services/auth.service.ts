@@ -61,13 +61,13 @@ export class AuthService {
         resp => {
           console.log(resp);
          
-          console.log("dentro del jwt",resp.data.email);
+          // console.log("dentro del jwt",resp.data.email);
         if(resp.userlogged){
           this._usuario = {
             name:resp.name!     
           }
           localStorage.setItem('token', resp.jwt!);
-          localStorage.setItem('email',resp.data.email);
+          // localStorage.setItem('email',resp.data.email);
           
         }
       }

@@ -12,7 +12,7 @@
         </select>
     </div>
    
-    <img *ngIf=" pelicula" [src]="getFullImgPath(pelicula?.backdrop_path)" alt="{{pelicula.id}}">
+    <img *ngIf=" pelicula" [src]="getFullImgPath(pelicula?.backdrop_path)" name="{{pelicula.id}}" alt="{{pelicula.original_title}}">
     <p *ngIf="pelicula && pelicula.original_title" class="tituloPelicula">{{pelicula.original_title | slice:0:20}}</p> 
 </div>
 

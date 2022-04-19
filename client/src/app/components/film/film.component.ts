@@ -35,8 +35,8 @@ export class FilmComponent implements OnInit {
       console.log(err);
       if(err instanceof HttpErrorResponse){
         if(err.status == 403){
-          this.router.navigate(['/login']);
           localStorage.clear();
+          this.router.navigate(['/login']);
         }
        
       }

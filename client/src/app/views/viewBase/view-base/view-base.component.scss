@@ -1,6 +1,47 @@
+.fotos_listas{
+    margin-bottom: 5%;
+}
+.tituloListas{
+    margin-top: 2%;
+    font-size: 3em;
+    font-weight: bold;
+    color: #1b252a;
+}
+
+#titulo1{
+    margin-top: 2%;
+    font-size: 3em;
+    font-weight: bold;
+    color: #1b252a;
+}
+#titulo2{
+    margin-top: 2%;
+    font-size: 3em;
+    font-weight: bold;
+    color: #1b252a;
+}
 
 .list{
     display: flex;
+    flex-direction: column;
+}
+.list_container{
+    display: flex;
+    flex-direction: column;
+}
+.film_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.peliculas_container{
+    display:flex;
+    flex-direction: row;
 }
 h1{
     text-align: center;
@@ -171,19 +212,31 @@ h1{
 	vertical-align: top;
 }
 
-.fotos_listas{
 
-}
 
 /* ---- ----- ----- Media Queries ----- ----- ----- */
 
 @media (max-width: 600px) {
+    #tituloListas{
+        margin-top: 2%;
+        font-size: 5em;
+        font-weight: 900;
+        color: #151313;
+    }
+    #titulo1{
+        font-size: 2em;
+    }
+    #titulo2{
+        font-size: 2em;
+    }
+    .fotos_listas{
+        width: 100%;
+        
+    }
     #enlace{
         display: block;
     }
-    .fotos_listas{
-        width: 40%;
-    }
+  
     .contenedor-carousel{
         // overflow: hidden;
    }
@@ -191,6 +244,9 @@ h1{
      
         min-width: 33vw;
       
+    }
+    .film_container{
+        flex-wrap: nowrap;
     }
     .contenedor-principal{
        
@@ -200,6 +256,12 @@ h1{
 
 
   @media (max-width: 450px) {
+    .fotos_listas{
+        width: 100%;
+    }
+    .film_container{
+        flex-wrap: wrap;
+    }
     #enlace{
         display: block;
     }

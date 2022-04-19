@@ -1,5 +1,6 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FilmComponent } from './components/film/film.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -40,9 +41,11 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    
   ],
-  providers: [PeliculaService],
+  providers: [PeliculaService,
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

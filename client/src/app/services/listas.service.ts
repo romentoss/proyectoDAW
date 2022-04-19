@@ -11,12 +11,17 @@ export class ListasService {
   
 
   constructor(private http:HttpClient) { }
-  public async getAllList(): Promise<SearchGifsResponse> {
-    const headers = new HttpHeaders({'authorization': localStorage.getItem('token')!});
+
   
-    const url = `${this.baseUrl}api/movies/lists`
+  
+
+  public async getAllList(): Promise<SearchGifsResponse> {
+    // const headers = new HttpHeaders({'authorization': localStorage.getItem('token')!});
+
+  
+    const url = `${this.baseUrl}api/movies/lists`;
    
-    return this.http.get<SearchGifsResponse>(url, {headers:headers}).toPromise()   
+    return this.http.get<SearchGifsResponse>(url).toPromise()   
   }
 }
 

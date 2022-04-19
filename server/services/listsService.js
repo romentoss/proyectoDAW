@@ -1,21 +1,28 @@
 
 const conn = require('../db/config');
 
-// async function getEmailLocal(){
-//     return email = await localStorage.getItem('email');
-// }
+
+const jwt = require('jsonwebtoken');
+
+
+
+
+
+
+
+
 
 async function getListByUser(req,res){
+    
+    const { email } = req.user;
 
-    // console.log(req.body);
     // const name = req.body.name;
     // const email = req.body.email;
     // const password = req.body.password;
     
-
     await conn.connect((err) => {
         // console.log("Listas!");
-        conn.query(`select * from userslist join usersfilms on userslist.listId= usersfilms.listOwner where emailUser="prueba1@prueba.com"`
+        conn.query(`select * from userslist join usersfilms on userslist.listId= usersfilms.listOwner where emailUser="${email}"`
          ,(err, respuesta) => {
             const output = []
             // console.log(respuesta);
