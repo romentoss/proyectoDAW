@@ -1,3 +1,9 @@
+.borrar_lista{
+    display: flex;
+    justify-content: start;
+    
+}
+
 .fotos_listas{
     margin-bottom: 5%;
 }
@@ -202,7 +208,7 @@ h1{
 }
 
  .pelicula:hover {
-	transform: scale(1.2);
+	transform: scale(1.03);
 	transform-origin: center;
     z-index: 2;
 }
@@ -217,6 +223,13 @@ h1{
 /* ---- ----- ----- Media Queries ----- ----- ----- */
 
 @media (max-width: 600px) {
+
+    .borrar_lista{
+        
+        justify-content: space-between;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
     #tituloListas{
         margin-top: 2%;
         font-size: 5em;

@@ -33,11 +33,11 @@
     <h1 id="titulo2">Listas de Usuario</h1>
     <div class="lists">
         <div class="btn_list_container">
-            <button mat-fab role="button" class="Crear_lista" id="button_lista"><i class="fas fa-plus"></i></button>
-            <form class="example-form">
+            <form class="example-form" [formGroup]="listaFormulario">
+                <button mat-fab role="button" class="Crear_lista" id="button_lista"><i class="fas fa-plus" (click)="newList()"></i></button>
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label>Nueva Lista</mat-label>
-                  <input matInput placeholder="List Name" value="">
+                  <input matInput type="text" formControlName="name" id="input_lista" placeholder="List Name" value="" (change)="getNewList(nueva)" #nueva>
                 </mat-form-field>
             </form>
         </div>
@@ -46,14 +46,21 @@
        
         <div class="list_container">
             <div class="list" id="list" *ngFor="let list of resultadoListas" #list>
-                <div style="display: block;"  id="tituloListas"><h1>{{list.listName}}</h1></div>
+                <div style="display: block;"  id="tituloListas"><h1>{{list.listName}}</h1>
+                    <div class="borrar_lista">
+                        <h3 style="margin-right: 3%; margin-left: 2%;">Borrar Lista</h3>
+                        <button mat-button style="background-color: red;" value="{{list.listName}}"  (click)="deleteList(delList)" #delList>-</button>
+                    </div>
+                   
+                </div>
                
                     <div class="film_container">
                         <div class="peliculas_container" *ngFor="let movie of list.films">
-                        
+                        <input value="{{movie.filmId}}" style="display: none;" #delId>
                         <a href="https://www.themoviedb.org/movie/{{movie.filmIdMD}}" id="enlace">
                             <img src="{{movie.filmPhoto}}" class="fotos_listas" alt="" >
                         </a>
+                        <button mat-button style="background-color: red;" value="{{movie.filmName}}"  (click)="deleteFilm(delId)" #delFilm>-</button>
                         
                         
                  

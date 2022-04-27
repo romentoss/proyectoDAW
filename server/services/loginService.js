@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 async function login(req, res) {
   const { email, password } = req.body;
   const payload = { user: { email, password } };
+ 
 
   jwt.sign(
     payload,

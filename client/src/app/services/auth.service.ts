@@ -48,8 +48,9 @@ export class AuthService {
   }
 
   login(email:string, password:string){
-    
+    localStorage.setItem('email', email);
     const url = `${this.baseUrl}api/auth/login`;
+    
     const body = {
       email,
       password

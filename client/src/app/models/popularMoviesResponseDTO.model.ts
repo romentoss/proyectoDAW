@@ -55,7 +55,7 @@
         listId:    number;
         listName:  string;
         listOwner: number;
-        films:     Film[];
+        films?:     Film[];
     }
     
     export interface Film {

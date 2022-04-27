@@ -22,10 +22,10 @@ async function getListByUser(req,res){
     
     await conn.connect((err) => {
         // console.log("Listas!");
-        conn.query(`select * from userslist join usersfilms on userslist.listId= usersfilms.listOwner where emailUser="${email}"`
+        conn.query(`select * from userslist left join usersfilms on userslist.listId= usersfilms.listOwner where emailUser="${email}"`
          ,(err, respuesta) => {
             const output = []
-            // console.log(respuesta);
+            console.log(respuesta);
             // Iterate res array and get all distinct listId
             respuesta.forEach( ({listId, listName, listOwner} ) => {
                 if (!output.some(item => item.listId === listId)) {
@@ -36,6 +36,7 @@ async function getListByUser(req,res){
                     });
                 }
             })
+            console.log("1",output);
             
             respuesta.forEach( element => {
                 output.forEach( item => {
@@ -52,7 +53,7 @@ async function getListByUser(req,res){
                     }
                 })
             })
-
+            console.log("2",output);
             // console.log("omg", output[0])
             return res.send({data:output});
         });

@@ -27,6 +27,7 @@ export class ViewLoginComponent{
     // .subscribe(console.log);
    
     const {email,password} = this.miFormulario.value;
+    localStorage.setItem("email", email);
     this.authService.login(email, password)
     .subscribe(userlogged =>{
       console.log(userlogged);

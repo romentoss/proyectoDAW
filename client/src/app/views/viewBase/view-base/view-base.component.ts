@@ -1,9 +1,11 @@
-import { ListasService } from './../../../services/listas.service';
-import { NullTemplateVisitor } from '@angular/compiler';
+import { ListasService } from 'src/app/services/listas.service';
+
+
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { PeliculaService } from '../../../services/pelicula.service';
 import { Datum,Film } from 'src/app/models/popularMoviesResponseDTO.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-view-base',
@@ -14,12 +16,19 @@ export class ViewBaseComponent implements OnInit {
   
   title = 'API peliculas';
   page:number=0; 
- 
+
+  listaFormulario:FormGroup = this.fb.group({
+    name: ['',[Validators.required]],
+    
+
+  });
+
  
   // peliculas=document.querySelectorAll('.pelicula');
   
   @ViewChild('carrousel') carrousel!:ElementRef;
   @ViewChildren('peliculas') peliculas!:QueryList<ElementRef>;
+ 
   pelicula = this.peliculas;
 
   carrouselStep:number = 0;
@@ -30,6 +39,7 @@ export class ViewBaseComponent implements OnInit {
   resultadoPeliculas:Result[]=[]; 
   resultadoListas:Datum[]=[];
   resultadoListasPeliculas:Film[]=[];
+  nuevaLista!:string;
   
   // API_URL=`http://api.themoviedb.org/3/movie/popular?api_key=1503085c4d4109b42067460d59344777&page=`+this.page;
   
@@ -39,7 +49,8 @@ export class ViewBaseComponent implements OnInit {
   
   constructor(
     private dataSvc:PeliculaService,
-    private dataLists:ListasService
+    private dataLists:ListasService,
+    private fb:FormBuilder
   ){
 
   }
@@ -141,7 +152,36 @@ export class ViewBaseComponent implements OnInit {
     
     this.carrousel.nativeElement.style.transform=`translate(-${this.carrouselStep*100}vw)`
   }
+  newList(){
+      // this.nuevaLista = this.dataLists.addNewList();
+      const { name } = this.listaFormulario.value;
+      console.log("en newlist"+name);
+      this.dataLists.addNewList(name);
+      
+      this.ngOnInit();
+      document.getElementById('input_lista')!.innerText = '';
+      
+  }
+  getNewList(nueva:any){
+    this.nuevaLista=nueva.value;
+    console.log(this.nuevaLista);
+  }
 
+  // login() {
+  //   // this.authService.validarToken()
+  //   // .subscribe(console.log);
+   
+  //   const {email,password} = this.miFormulario.value;
+  //   this.authService.login(email, password)
+  //   .subscribe(userlogged =>{
+  //     console.log(userlogged);
+  //     if(userlogged===true){
+  //       this.router.navigateByUrl('/home');
+  //     }else{
+  //       Swal.fire("Error", userlogged, 'error');
+  //     }
+  //   });
+  // }
  
   
   ngOnInit(): void {
@@ -152,12 +192,28 @@ export class ViewBaseComponent implements OnInit {
       console.log(e.target);
     })
   }
-  redirectTo(){
-    location.href = 'www.netflix.com/watch/81193599?trackId=253863245';
-  }
   
+  
+  deleteList(delList:any){
 
+    const nombreList= delList._elementRef.nativeElement.value;
+    console.log("en deletelist"+nombreList);
+    this.dataLists.deleteList(nombreList);
+    this.ngOnInit();
+   
+
+    console.log(delList._elementRef.nativeElement.value);
+  }
+  deleteFilm(delFilm:any){
+    // const nombreFilm= delFilm._elementRef.nativeElement.value;
+    console.log(delFilm.value)
+    this.dataLists.deleteFilm(delFilm.value);
+    this.ngOnInit();
+   
+    
+  }
 // ? ----- ----- Event Listener para la flecha derecha. ----- -----
 
 
 }
+

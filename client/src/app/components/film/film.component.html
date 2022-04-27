@@ -5,14 +5,24 @@
     </div>
 </div> -->
 <div id="pelicula">
-    <div class="botones_pelicula">
-        <button mat-button style="background-color: red;">+</button>
-        <select >
-            <option *ngFor="let lista of resultadoListas">{{lista.listName}}</option>
-        </select>
-    </div>
+    
+        <form class="example-form" [formGroup]="peliculaFormulario">
+            <div class="botones_pelicula">
+                <button mat-button style="background-color: red;" (click)="addNewFilm()">+</button>
+                <select formControlName="selectedList">
+                    <option *ngFor="let lista of resultadoListas" value="{{lista.listId}}">{{lista.listName}}</option>
+                </select>
+             
+            </div>
+           
+                <img *ngIf=" pelicula" [src]="getFullImgPath(pelicula?.backdrop_path)" name="{{pelicula.id}}" alt="{{pelicula.original_title}}">
+                <p *ngIf="pelicula && pelicula.original_title"  class="tituloPelicula">{{pelicula.original_title | slice:0:20}}</p> 
    
-    <img *ngIf=" pelicula" [src]="getFullImgPath(pelicula?.backdrop_path)" name="{{pelicula.id}}" alt="{{pelicula.original_title}}">
-    <p *ngIf="pelicula && pelicula.original_title" class="tituloPelicula">{{pelicula.original_title | slice:0:20}}</p> 
+           
+         
+        </form>
+       
+    
+    
 </div>
 

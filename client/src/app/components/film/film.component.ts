@@ -1,9 +1,12 @@
 import { Router } from '@angular/router';
 import { ViewBaseComponent } from './../../views/viewBase/view-base/view-base.component';
 import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Datum, Result } from 'src/app/models/popularMoviesResponseDTO.model';
+import { Datum, Film, Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { ListasService } from 'src/app/services/listas.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+
+
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -17,12 +20,32 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 export class FilmComponent implements OnInit {
   @Input() pelicula!: Result;
   resultadoListas:Datum[]=[];
-  constructor(private dataLists:ListasService
-              ,private router:Router){
+  peliculaFormulario:FormGroup= new FormGroup({
+    selectedList: new FormControl('', Validators.required)
+   
+  });
+  
+  
+  
 
+  constructor(private dataLists:ListasService
+              ,private router:Router
+              ,private fb:FormBuilder){
+               
+
+  }
+  
+  initForm(){
+    console.log(this.resultadoListas);
+    this.peliculaFormulario = new FormGroup({
+      selectedList: new FormControl(this.resultadoListas[0].listId, Validators.required)
+     
+    });
+   
   }
 
   async initLists(){
+    
     try {
       var result =await this.dataLists.getAllList()
     //  console.log('Result peliculas',result);
@@ -50,9 +73,14 @@ export class FilmComponent implements OnInit {
    };
   foto="https://image.tmdb.org/t/p/w500";
 
-  ngOnInit(): void {
+  async ngOnInit() {
+   
+    
+    
     console.log("film", this.pelicula)
-    this.initLists();
+    await this.initLists();
+    this.initForm();
+    
   }
 
   getFullImgPath(id:string|undefined){
@@ -62,6 +90,30 @@ export class FilmComponent implements OnInit {
       return './../../../assets/nofoto.png';  
     }
     
+  }
+  async addNewFilm(){
+    const formulario= this.peliculaFormulario.value;
+    const {selectedList} = this.peliculaFormulario.value;
+    console.log(this.pelicula);
+    console.log(selectedList);
+    await this.dataLists.addNewFilmToList(selectedList,this.pelicula);
+    
+    location.reload();
+
+
+    
+
+    
+   
+    
+    
+      
+       
+       
+       
+     
+    
+
   }
   
 }
