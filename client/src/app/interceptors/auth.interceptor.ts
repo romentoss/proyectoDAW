@@ -14,7 +14,10 @@ import {Router} from '@angular/router';
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) {}
-
+  // Utilizamos un interceptor que intercepta las llamadas de la clase http de angular
+  // y el servidor, basicamente seteamos el header con nuestro token y lo manejamos 
+  // para que si obtenemos un 401 que seria unauthorization nos redirija directamente al 
+  // login.
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
     if (token) {

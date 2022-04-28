@@ -17,7 +17,6 @@ require('dotenv').config();
 const app = express();
 
 //conexión bdd Mysql
-// dbConnection();
 
 //Directorio publico
 app.use(express.static('public'));

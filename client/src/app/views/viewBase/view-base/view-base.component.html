@@ -1,4 +1,4 @@
-
+<!-- Componente Base  -->
 <div class="containerBody">
     <h1 id="titulo1">Lista de Peliculas</h1>
     <div class="button_container">
@@ -6,30 +6,20 @@
         <button id="btnNext" (click)="nextPage(page)"><i class="fa-solid fa-angles-right"></i></button>
         
     </div>
-    
-    <!--Traer los datos de las peliculas solo imagen y titulo
-    crear estructura para pintar las peliculas-->
-    <br>
-  
-
-    <!--Prueba-->
-    
-<div class="peliculas-recomendadas contenedor">
-
-
-	<div class="contenedor-principal">
-		<button role="button" (click)="goPre()" [disabled]="carrouselStep == 0" id="flecha-izquierda" class="flecha-izquierda"><i class="fas fa-angle-left"></i></button>
-
-		<div class="contenedor-carousel" >
-			<div class="carousel" #carrousel>
-				<div class="pelicula" id="pelicula" *ngFor="let pelicula of resultadoPeliculas" #peliculas>
-                    <app-film [pelicula]="pelicula"></app-film>
+    <br>  
+    <div class="peliculas-recomendadas contenedor">
+        <div class="contenedor-principal">
+            <button role="button" (click)="goPre()" [disabled]="carrouselStep == 0" id="flecha-izquierda" class="flecha-izquierda"><i class="fas fa-angle-left"></i></button>
+            <div class="contenedor-carousel" >
+                <div class="carousel" #carrousel>
+                    <div class="pelicula" id="pelicula" *ngFor="let pelicula of resultadoPeliculas" #peliculas>
+                        <app-film [pelicula]="pelicula"></app-film>
+                    </div>
                 </div>
-			</div>
-		</div>
-		<button role="button" (click)="goNext()" [disabled]="carrouselStep >= maxCarrouselStep-1" id="flecha-derecha" class="flecha-derecha"><i class="fas fa-angle-right"></i></button>
-	</div>
-</div>
+            </div>
+            <button role="button" (click)="goNext()" [disabled]="carrouselStep >= maxCarrouselStep-1" id="flecha-derecha" class="flecha-derecha"><i class="fas fa-angle-right"></i></button>
+        </div>
+    </div>
     <h1 id="titulo2">Listas de Usuario</h1>
     <div class="lists">
         <div class="btn_list_container">
@@ -42,8 +32,6 @@
             </form>
         </div>
       
-       
-       
         <div class="list_container">
             <div class="list" id="list" *ngFor="let list of resultadoListas" #list>
                 <div style="display: block;"  id="tituloListas"><h1>{{list.listName}}</h1>
@@ -51,9 +39,7 @@
                         <h3 style="margin-right: 3%; margin-left: 2%;">Borrar Lista</h3>
                         <button mat-button style="background-color: red;" value="{{list.listName}}"  (click)="deleteList(delList)" #delList>-</button>
                     </div>
-                   
                 </div>
-               
                     <div class="film_container">
                         <div class="peliculas_container" *ngFor="let movie of list.films">
                         <input value="{{movie.filmId}}" style="display: none;" #delId>
@@ -61,10 +47,6 @@
                             <img src="{{movie.filmPhoto}}" class="fotos_listas" alt="" >
                         </a>
                         <button mat-button style="background-color: red;" value="{{movie.filmName}}"  (click)="deleteFilm(delId)" #delFilm>-</button>
-                        
-                        
-                 
-                  
                         </div>
                     </div>
              

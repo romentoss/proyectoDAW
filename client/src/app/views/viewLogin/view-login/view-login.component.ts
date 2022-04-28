@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-login.component.scss']
 })
 export class ViewLoginComponent{
+  // Creamos la variable formulario y hacemos las validaciones. 
   miFormulario:FormGroup = this.fb.group({
     email: ['',[Validators.required,Validators.email]],
     password:['',[Validators.required, Validators.minLength(6)]],
@@ -21,16 +22,13 @@ export class ViewLoginComponent{
     private router:Router,
     private authService:AuthService) { }
 
-  
+  // Función encargada de logear al usuario, llamamos al servicio y pasamos los parametros
+  // nos suscribimos al observable y o navegamos a la ruta home si todo es correcto o sacamos el error del swal
   login() {
-    // this.authService.validarToken()
-    // .subscribe(console.log);
-   
     const {email,password} = this.miFormulario.value;
     localStorage.setItem("email", email);
     this.authService.login(email, password)
     .subscribe(userlogged =>{
-      console.log(userlogged);
       if(userlogged===true){
         this.router.navigateByUrl('/home');
       }else{

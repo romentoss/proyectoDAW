@@ -10,18 +10,27 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-register.component.scss']
 })
 export class ViewRegisterComponent {
+  // Creamos un form group para el formulario y añadimos las validaciones de angular forms necesarias.
   miFormulario:FormGroup = this.fb.group({
     name: ['',[Validators.required,Validators.minLength(1)]],
     email: ['',[Validators.required,Validators.email]],
     password:['',[Validators.required, Validators.minLength(6)]],
 
   });
+  // En el constructor le pasamos el formbuilder el router y el authservice que utilizaremos en las 
+  // funciones. 
   constructor(private fb:FormBuilder,
               private router:Router,
               private authService:AuthService) { }
+
+  // Función encargada de registrar, traemos los datos de forma desestructurada desde el formulario
+  // luego llamamos a la función de authservice y requerimos la funcion de registro a la que le pasamos los 
+  // parametros necesarios para realizar la petición. Como nos devuelve un observable realizamos el subscribe para 
+  // suscribirnos a este, y en el caso de que todo sea correcto con el servicio del router nos dirigimos al dashboard correspondiente. 
+  // y en el caso de que salga mal mostraremos un error a travez de la libreria swal. 
   register(){
-    console.log(this.miFormulario.value);
-    console.log(this.miFormulario.valid);
+    // console.log(this.miFormulario.value);
+    // console.log(this.miFormulario.valid);
     // this.router.navigateByUrl('/dashboard')
     const {name,email,password} = this.miFormulario.value;
     this.authService.registro(name,email, password)

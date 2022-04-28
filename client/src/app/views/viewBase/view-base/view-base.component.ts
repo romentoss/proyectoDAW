@@ -13,207 +13,143 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./view-base.component.scss']
 })
 export class ViewBaseComponent implements OnInit {
-  
+  //Variable con el titulo de Nuestra app
   title = 'API peliculas';
-  page:number=0; 
-
+  // Variable para la paginación de la api
+  page:number=0;
+  // creacion de formgroup para validacion de creación de listas. 
   listaFormulario:FormGroup = this.fb.group({
-    name: ['',[Validators.required]],
-    
-
+    name: ['',[Validators.required]]
   });
-
- 
-  // peliculas=document.querySelectorAll('.pelicula');
-  
   @ViewChild('carrousel') carrousel!:ElementRef;
   @ViewChildren('peliculas') peliculas!:QueryList<ElementRef>;
- 
   pelicula = this.peliculas;
-
   carrouselStep:number = 0;
   maxCarrouselStep!:number;
-
-
+  //Variable que contiene un string con la primera parte de la url para conseguir la foto
   foto="https://image.tmdb.org/t/p/w500";
   resultadoPeliculas:Result[]=[]; 
   resultadoListas:Datum[]=[];
   resultadoListasPeliculas:Film[]=[];
   nuevaLista!:string;
   
-  // API_URL=`http://api.themoviedb.org/3/movie/popular?api_key=1503085c4d4109b42067460d59344777&page=`+this.page;
-  
-  
-  xhr = new XMLHttpRequest();
-   
-  
+
   constructor(
     private dataSvc:PeliculaService,
     private dataLists:ListasService,
     private fb:FormBuilder
-  ){
+  ){}
 
-  }
+  //Función para inicializar las listas, llamamos al servicio 
+  // y comprobamos que nos devuelbe datos. Seguidamente introducimos los datos en 
+  // la variable resultadoListas. 
   async initLists(){
-    
-    
-     var result =await this.dataLists.getAllList()
-      console.log('Result ',result);
-      if(result.data[0].films != undefined){
-        console.log("Listas",result.data[0]);
+    var result =await this.dataLists.getAllList()
+    if(result.data[0].films != undefined){
         this.resultadoListas = result.data;
       }
-      
-      
-      
-    };
-
-    async initFilms(){
-    
-    
-      var result =await this.dataLists.getAllList()
-       console.log('Result ',result);
-       if(result.data[0].films != undefined){
-         console.log("peliculas de lista 1",result.data[0].films);
-         this.resultadoListasPeliculas = result.data[0].films;
-       }
-       
-       
-       
-     };
+  };
+  // Función que se encarga de inicializar las películas , llamamos al servicio 
+  // pero esta vez introducimos la data.films en la variable resultadoListasPeliculas. 
+  async initFilms(){
+    var result =await this.dataLists.getAllList()
+    if(result.data[0].films != undefined){
+        this.resultadoListasPeliculas = result.data[0].films;
+    }
+  };
   
-
-  async initPage(page:number){
+  // Función que se encarga de inicializar la paginación , llamamos al servicio 
+  // y en este caso a la función getall le pasamos el numero de pagina correspondiente 
+  // los resultados los guardamos en la variable resultadoPeliculas
+  async initPage(){
     this.page = 1;
-     console.log(page)
-     var result =await this.dataSvc.getAll(this.page)
-      console.log('Result ',result.results[0]); 
-      this.resultadoPeliculas = result.results;
-    };
+    var result =await this.dataSvc.getAll(this.page) 
+    this.resultadoPeliculas = result.results;
+  };
+  // Función que se encarga de dar la data de la siguiente página de la API 
+  // recibe el numero de pagina y lo aumenta en 1, luego llamamos al servicio 
+  // para volver a recibir la nuev data. 
   async nextPage(page:number){
     this.page = page+1;
-     console.log(page)
-     var result =await this.dataSvc.getAll(this.page)
-      console.log('Result ',result.results[0]); 
-      this.resultadoPeliculas = result.results;
-    };
+    var result =await this.dataSvc.getAll(this.page)
+    this.resultadoPeliculas = result.results;
+  };
+  // Función para requerir la data de la página anterior, pasamos el numero 
+  // de página y preguntamos si esta tiene página anterior para no seguir 
+  // en numeros negativos, luego llamamos al server y pasamos los datos para 
+  // hacer la petición.
   async oldPage(page:number){
       if(this.page > 1){
         this.page = page-1;
-        console.log(page)
         var result =await this.dataSvc.getAll(this.page)
-         console.log('Result ',result.results[0]); 
-         this.resultadoPeliculas = result.results;
-      }
-      
+        this.resultadoPeliculas = result.results;
+      }   
+  };
 
-      
-     
-      };
-
-  getFullImgPath(id:string|undefined){
-    if(id){ 
-      return this.foto + id;
-    }
-    return 'no foto';
-    
-  }
+  
+  // Función que se encarga de ir moviendo el carrousel de manera positiva 
   goNext(){
     this.calculateMaxStep();
     if(this.carrouselStep<this.maxCarrouselStep-1){
       this.carrouselStep += 1;  
       this.moveCarrousel();
     }
-    
-    
-    // this.carrousel.nativeElement.scrollLeft += this.carrousel.nativeElement.offsetWidth;
-    
-
-    
   }
+  // Función que se encarga de ir moviendo el carrousel de manera negativa
   goPre(){
     this.calculateMaxStep();
     if(this.carrouselStep>0){
       this.carrouselStep -=1;
       this.moveCarrousel();
     }
-   
-    
-  
-    
   }
+  // Función para calcular el numero máximo de pasos y el numero de peliculas a mostrar segun el tamaño.
   calculateMaxStep(){
     const carrouselWidth = this.carrousel.nativeElement.offsetWidth;
     const filmWidth = this.peliculas.first.nativeElement.offsetWidth;
     this.maxCarrouselStep = Math.floor(this.resultadoPeliculas.length/(carrouselWidth/filmWidth));
     console.log(this.maxCarrouselStep);
   }
+  //Función para mover el carrousel con un estilo de trasnlate para la funcionalidad
   moveCarrousel(){
     
     this.carrousel.nativeElement.style.transform=`translate(-${this.carrouselStep*100}vw)`
   }
+  // Función para añadir una nueva lista, llamamos al servicio y le pasamos el parametro del nombre de la nueva lista,
+  // luego usamos el ngOnInit para volver a cargar los datos necesarios. 
   newList(){
-      // this.nuevaLista = this.dataLists.addNewList();
       const { name } = this.listaFormulario.value;
-      console.log("en newlist"+name);
       this.dataLists.addNewList(name);
-      
       this.ngOnInit();
-      document.getElementById('input_lista')!.innerText = '';
-      
   }
+  // Función para dar el dato de la nueva lista a la variable desde el 
+  // change del input. 
   getNewList(nueva:any){
     this.nuevaLista=nueva.value;
-    console.log(this.nuevaLista);
   }
 
-  // login() {
-  //   // this.authService.validarToken()
-  //   // .subscribe(console.log);
-   
-  //   const {email,password} = this.miFormulario.value;
-  //   this.authService.login(email, password)
-  //   .subscribe(userlogged =>{
-  //     console.log(userlogged);
-  //     if(userlogged===true){
-  //       this.router.navigateByUrl('/home');
-  //     }else{
-  //       Swal.fire("Error", userlogged, 'error');
-  //     }
-  //   });
-  // }
+
  
-  
+  // Función de inicio para inicializar los datos y llamar a las funciones inicializadoras. 
+  // iniciamos la paginación, las listas y las peliculas
   ngOnInit(): void {
-    this.initPage(1);
+    this.initPage();
     this.initLists();
     this.initFilms();
-    addEventListener('click',(e)=>{
-      console.log(e.target);
-    })
   }
   
-  
+  // Función que se encarga de eliminar listas, llamamos el servicio 
+  // le pasamos el nombre de la lista y eliminamos.
   deleteList(delList:any){
-
     const nombreList= delList._elementRef.nativeElement.value;
-    console.log("en deletelist"+nombreList);
     this.dataLists.deleteList(nombreList);
     this.ngOnInit();
-   
-
-    console.log(delList._elementRef.nativeElement.value);
   }
+  // Función que se encarga de eliminar peliculas, llamamos el servicio 
+  // le pasamos el id de la pelicula y eliminamos.
   deleteFilm(delFilm:any){
-    // const nombreFilm= delFilm._elementRef.nativeElement.value;
-    console.log(delFilm.value)
     this.dataLists.deleteFilm(delFilm.value);
-    this.ngOnInit();
-   
-    
+    this.ngOnInit();  
   }
-// ? ----- ----- Event Listener para la flecha derecha. ----- -----
-
-
 }
 

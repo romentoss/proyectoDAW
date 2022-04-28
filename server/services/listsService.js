@@ -1,27 +1,8 @@
-
 const conn = require('../db/config');
 
-
-const jwt = require('jsonwebtoken');
-
-
-
-
-
-
-
-
-
 async function getListByUser(req,res){
-    
     const { email } = req.user;
-
-    // const name = req.body.name;
-    // const email = req.body.email;
-    // const password = req.body.password;
-    
     await conn.connect((err) => {
-        // console.log("Listas!");
         conn.query(`select * from userslist left join usersfilms on userslist.listId= usersfilms.listOwner where emailUser="${email}"`
          ,(err, respuesta) => {
             const output = []
