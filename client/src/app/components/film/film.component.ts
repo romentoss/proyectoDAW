@@ -4,6 +4,7 @@ import { Datum, Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { ListasService } from 'src/app/services/listas.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 
@@ -31,9 +32,15 @@ export class FilmComponent implements OnInit {
   // introducimos en este formulario la lista seleccionada en el select y la pasamos por el 
   // validador required el cual nos proporciona la libreria de angular forms. 
   initForm(){
-    this.peliculaFormulario = new FormGroup({
-      selectedList: new FormControl(this.resultadoListas[0].listId, Validators.required)
-    }); 
+    try {
+      this.peliculaFormulario = new FormGroup({
+        selectedList: new FormControl(this.resultadoListas[0].listId, Validators.required)
+      }); 
+    } catch (error) {
+      Swal.fire("Error", 'No existen listas para añadir! Crea ya');
+      
+    }
+   
   }
   // Función que se encarga de inicializar las listas, creamos la variable result que es la encargada 
   // de llamar al servicio el cual tiene la función getAllList() que es la encargada de traer los datos, 

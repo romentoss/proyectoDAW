@@ -6,6 +6,7 @@ import { Result } from 'src/app/models/popularMoviesResponseDTO.model';
 import { PeliculaService } from '../../../services/pelicula.service';
 import { Datum,Film } from 'src/app/models/popularMoviesResponseDTO.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-base',
@@ -44,18 +45,28 @@ export class ViewBaseComponent implements OnInit {
   // y comprobamos que nos devuelbe datos. Seguidamente introducimos los datos en 
   // la variable resultadoListas. 
   async initLists(){
-    var result =await this.dataLists.getAllList()
-    if(result.data[0].films != undefined){
-        this.resultadoListas = result.data;
-      }
+    try {
+      var result =await this.dataLists.getAllList()
+      if(result.data[0].films != undefined){
+          this.resultadoListas = result.data;
+        }
+    } catch (error) {
+        Swal.fire("Error", 'No existen listas! Crea ya');
+    }
+    
   };
   // Función que se encarga de inicializar las películas , llamamos al servicio 
   // pero esta vez introducimos la data.films en la variable resultadoListasPeliculas. 
   async initFilms(){
-    var result =await this.dataLists.getAllList()
-    if(result.data[0].films != undefined){
-        this.resultadoListasPeliculas = result.data[0].films;
+    try {
+      var result =await this.dataLists.getAllList()
+      if(result.data[0].films != undefined){
+          this.resultadoListasPeliculas = result.data[0].films;
+      }
+    } catch (error) {
+      Swal.fire("Error", 'No existen peliculas! Comienza a crear');
     }
+    
   };
   
   // Función que se encarga de inicializar la paginación , llamamos al servicio 
@@ -144,6 +155,7 @@ export class ViewBaseComponent implements OnInit {
     const nombreList= delList._elementRef.nativeElement.value;
     this.dataLists.deleteList(nombreList);
     this.ngOnInit();
+    
   }
   // Función que se encarga de eliminar peliculas, llamamos el servicio 
   // le pasamos el id de la pelicula y eliminamos.
