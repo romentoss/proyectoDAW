@@ -1,3 +1,4 @@
+import { Film } from './../../models/popularMoviesResponseDTO.model';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { Datum, Result } from 'src/app/models/popularMoviesResponseDTO.model';
@@ -85,8 +86,39 @@ export class FilmComponent implements OnInit {
   // nos pedirá dos parametros que serian la lista que se ha seleccionado para introducir la pelicula y la propia data de la pelicula.
   async addNewFilm(){
     // const formulario= this.peliculaFormulario.value;
-    const {selectedList} = this.peliculaFormulario.value;
-    await this.dataLists.addNewFilmToList(selectedList,this.pelicula);    
-    location.reload();
+    await this.fetchFilms();  
+    
+    
+   
   } 
+
+  async fetchFilms(){
+    const {selectedList} = this.peliculaFormulario.value;
+    await this.dataLists.addNewFilmToList(selectedList,this.pelicula);
+    const result = this.resultadoListas.map((lista)=>{
+      if(lista.listName === selectedList){
+        const auxList = lista;
+        const auxFilm = {
+          filmIdMD:this.pelicula.id,
+          filmName:this.pelicula.original_title,
+          filmPhoto:this.pelicula.backdrop_path,
+          filmUrl:""
+        } as Film;
+        auxList.films?.push(auxFilm); 
+        return auxList;
+      }
+      return lista;
+
+    });
+   
+    this.resultadoListas = result;
+    location.reload()
+    
+    
+    // this.resultadoListas = result.data;
+
+   
+    
+    
+  }
 }

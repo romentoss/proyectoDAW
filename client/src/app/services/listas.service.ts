@@ -63,7 +63,7 @@ export class ListasService {
       listOwner,
       pelicula
     }    
-    return this.http.post<any>(url,body).subscribe();
+    return this.http.post<any>(url,body).toPromise();
   }
 }
 

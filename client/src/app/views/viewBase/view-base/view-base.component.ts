@@ -46,28 +46,36 @@ export class ViewBaseComponent implements OnInit {
   // la variable resultadoListas. 
   async initLists(){
     try {
-      var result =await this.dataLists.getAllList()
-      if(result.data[0].films != undefined){
-          this.resultadoListas = result.data;
-        }
+      await this.fetchList();
     } catch (error) {
         Swal.fire("Error", 'No existen listas! Crea ya');
     }
     
   };
+  async fetchList(){
+    var result =await this.dataLists.getAllList()
+    
+        this.resultadoListas = result.data;
+     
+   }
   // Función que se encarga de inicializar las películas , llamamos al servicio 
   // pero esta vez introducimos la data.films en la variable resultadoListasPeliculas. 
   async initFilms(){
     try {
-      var result =await this.dataLists.getAllList()
-      if(result.data[0].films != undefined){
-          this.resultadoListasPeliculas = result.data[0].films;
-      }
+      await this.fetchPeliculas();
     } catch (error) {
       Swal.fire("Error", 'No existen peliculas! Comienza a crear');
     }
     
   };
+
+  async fetchPeliculas(){
+    var result =await this.dataLists.getAllList();
+    this.resultadoListasPeliculas = result.data[0].films as Film[];
+    
+  }
+
+ 
   
   // Función que se encarga de inicializar la paginación , llamamos al servicio 
   // y en este caso a la función getall le pasamos el numero de pagina correspondiente 
@@ -151,17 +159,26 @@ export class ViewBaseComponent implements OnInit {
   
   // Función que se encarga de eliminar listas, llamamos el servicio 
   // le pasamos el nombre de la lista y eliminamos.
-  deleteList(delList:any){
+  async deleteList(delList:any){
+   
     const nombreList= delList._elementRef.nativeElement.value;
-    this.dataLists.deleteList(nombreList);
-    this.ngOnInit();
+    await this.dataLists.deleteList(nombreList);
+    await this.fetchList();
+    location.reload();
+   
+    
     
   }
   // Función que se encarga de eliminar peliculas, llamamos el servicio 
   // le pasamos el id de la pelicula y eliminamos.
-  deleteFilm(delFilm:any){
+  async deleteFilm(delFilm:any){
     this.dataLists.deleteFilm(delFilm.value);
-    this.ngOnInit();  
+   
+    await this.fetchList();
+    // location.reload();
+     
   }
+
+
 }
 

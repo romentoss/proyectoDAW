@@ -32,7 +32,7 @@
             </form>
         </div>
       
-        <div class="list_container">
+        <div class="list_container" *ngIf="resultadoListas">
             <div class="list" id="list" *ngFor="let list of resultadoListas" #list>
                 <div style="display: block;"  id="tituloListas"><h1>{{list.listName}}</h1>
                     <div class="borrar_lista">
