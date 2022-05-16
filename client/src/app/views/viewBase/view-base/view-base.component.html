@@ -47,7 +47,10 @@
                         <a href="https://www.themoviedb.org/movie/{{movie.filmIdMD}}" id="enlace">
                             <img src="{{movie.filmPhoto}}" class="fotos_listas" alt="" >
                         </a>
-                        <button mat-button id="delFilm" value="{{movie.filmName}}"  (click)="deleteFilm(delId)" #delFilm><i class="fa-solid fa-trash"></i></button>
+                       
+                            <button mat-button id="delFilm" *ngIf="movie.filmId" value="{{movie.filmName}}"  (click)="deleteFilm(delId)" #delFilm><i class="fa-solid fa-trash"></i></button>
+                       
+                        
                         </div>
                     </div>
              

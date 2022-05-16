@@ -41,8 +41,8 @@ app.use('/api/auth', require('./controllers/controllerDb'));
 app.use('/api/movies' , require('./controllers/controllerMovies'));
 
 //Manejar demas rutas
-app.get('/', (req, res) => {
-   res.send("welcome to the api");
+app.get('*', (req, res) => {
+   res.sendFile(path.resolve(__dirname, 'public/index.html'));
 }
 );
 
